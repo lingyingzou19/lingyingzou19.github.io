@@ -57,6 +57,49 @@ body {
     color: rgba(0, 0, 0, 0.6);
 }
 
+.eye-widget {
+    margin-top: 40px;
+    width: fit-content;
+}
+
+.eye-widget-track {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.eye {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid rgba(26, 26, 26, 0.12);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+}
+
+.eye::after {
+    content: '';
+    position: absolute;
+    inset: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(26, 26, 26, 0.05);
+}
+
+.pupil {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #111;
+    box-shadow: inset -3px -3px 0 rgba(255, 255, 255, 0.12);
+    transform: translate(calc(-50% + var(--pupil-x, 0px)), calc(-50% + var(--pupil-y, 0px)));
+    will-change: transform;
+}
+
 /* ===== Navigation ===== */
 .hero-nav {
     margin-top: 80px;
@@ -67,6 +110,18 @@ body {
 /* 每个菜单项 */
 .nav-item {
     position: relative;
+    display: inline-block;
+}
+
+/* Bridge to prevent hover gap flickering */
+.nav-item::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 10px;
+    pointer-events: auto;
 }
 
 /* 主菜单文字 */
@@ -84,23 +139,20 @@ body {
 /* ===== Submenu（重点） ===== */
 .submenu {
     position: absolute;
-    top: calc(100% + 12px);
+    top: calc(100% + 10px);
     left: 0;
-
-    background: white;
-    border-radius: 10px;
-    padding: 10px 0;
     min-width: 220px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    z-index: 20;
 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-
-    /* 初始隐藏 */
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-
-    transform: translateY(10px);
-    transition: all 0.25s ease;
+    transform: translateY(8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
 }
 
 /* hover 显示 */
@@ -115,18 +167,23 @@ body {
 .submenu-link {
     display: block;
     padding: 10px 20px;
-    font-size: 16px;
-    color: #333;
+    color: rgba(26, 26, 26, 0.8);
     text-decoration: none;
-    transition: all 0.2s ease;
+    font-size: 28px;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: all 0.22s ease;
 }
 
 .submenu-link:hover {
-    background: #f0f0f0;
+    color: rgba(26, 26, 26, 1);
+    background: transparent;
     transform: translateX(3px);
 }
 
-/* ===== Gallery Section ===== */
+/* Gallery and other sections */
+
 .gallery {
     padding: 80px;
 }
@@ -138,6 +195,7 @@ body {
 .gallery-section h2 {
     font-size: 48px;
     margin-bottom: 40px;
+    text-align: left;
 }
 
 /* 子分类 */
@@ -148,7 +206,9 @@ body {
 .subsection-title {
     font-size: 28px;
     margin-bottom: 20px;
+    margin-left: 0;
     color: rgba(0, 0, 0, 0.7);
+    text-align: left;
 }
 
 /* 图片网格 */
@@ -168,17 +228,123 @@ body {
 .contact-links {
     display: flex;
     gap: 32px;
+    flex-wrap: wrap;
 }
 
 .contact-link {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 999px;
     text-decoration: none;
     color: #333;
     font-size: 18px;
+    border: 1px solid rgba(26, 26, 26, 0.12);
+    background: rgba(255, 255, 255, 0.72);
+    transition: transform 0.25s ease, opacity 0.25s ease, border-color 0.25s ease, background 0.25s ease;
 }
 
 .contact-link:hover {
-    opacity: 0.6;
+    opacity: 1;
+    transform: translateY(-2px);
+    border-color: rgba(26, 26, 26, 0.24);
+    background: rgba(255, 255, 255, 0.96);
+}
+
+.contact-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.contact-icon-svg {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.contact-icon-fill {
+    fill: currentColor;
+    stroke: none;
+}
+
+.contact-text {
+    font-size: 18px;
+    line-height: 1;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 40px 32px;
+    }
+
+    .hero-text h1 {
+        font-size: 64px;
+    }
+
+    .hero-text p {
+        font-size: 18px;
+    }
+
+    .hero-nav {
+        gap: 40px;
+    }
+
+    .nav-link {
+        font-size: 36px;
+    }
+
+    .eye {
+        width: 60px;
+        height: 60px;
+    }
+
+    .pupil {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 32px 20px;
+    }
+
+    .hero-text h1 {
+        font-size: 48px;
+    }
+
+    .hero-text p {
+        font-size: 16px;
+    }
+
+    .hero-nav {
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .nav-link {
+        font-size: 26px;
+    }
+
+    .eye-widget {
+        margin-top: 28px;
+    }
+
+    .eye-widget-track {
+        gap: 14px;
+    }
+
+    .eye {
+        width: 52px;
+        height: 52px;
+    }
 }

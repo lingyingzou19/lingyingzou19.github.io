@@ -21,14 +21,25 @@
       </div>
 
       <div class="hero-text">
-        <h1>Hi, I’m Lucy.</h1>
+        <h1>Hi, I'm Lucy.</h1>
         <p>
-          I’m an artist and art educator based in New York.
-          I studied Illustration at Parsons, and I’m now working on my
-          Master’s in Art Education. Alongside my academic work, I am
+          I'm an artist and art educator based in New York.
+          I studied Illustration at Parsons, and I'm now working on my
+          Master's in Art Education. Alongside my academic work, I am
           developing a practice that integrates visual art, interactive media,
           and art therapy.
         </p>
+      </div>
+
+      <div class="eye-widget" aria-hidden="true">
+        <div class="eye-widget-track" data-eye-group>
+          <div class="eye">
+            <div class="pupil" data-pupil></div>
+          </div>
+          <div class="eye">
+            <div class="pupil" data-pupil></div>
+          </div>
+        </div>
       </div>
 
       <nav class="hero-nav">
@@ -39,8 +50,7 @@
             <a href="#animation" class="submenu-link">Animation</a>
           </div>
         </div>
-
-        <div class="nav-item nav-item-top">
+        <div class="nav-item">
           <a href="#contact" class="nav-link">Contact</a>
         </div>
       </nav>
@@ -80,16 +90,35 @@
       <h2>Contact</h2>
       <div class="contact-links">
         <a href="https://www.instagram.com/luclzzz_art/" target="_blank" rel="noopener noreferrer" class="contact-link">
-          <span class="contact-icon">📷</span>
+          <span class="contact-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="contact-icon-svg" role="img" focusable="false">
+              <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
+              <circle cx="12" cy="12" r="4.25"></circle>
+              <circle cx="17.4" cy="6.6" r="1.2" class="contact-icon-fill"></circle>
+            </svg>
+          </span>
           <span class="contact-text">Instagram</span>
         </a>
         <a href="https://www.linkedin.com/in/lingying-zou-519a5736b" target="_blank" rel="noopener noreferrer"
           class="contact-link">
-          <span class="contact-icon">💼</span>
+          <span class="contact-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="contact-icon-svg" role="img" focusable="false">
+              <rect x="4" y="4" width="16" height="16" rx="2.5" ry="2.5"></rect>
+              <path d="M8.1 10.2v6"></path>
+              <path d="M8.1 7.6h.01"></path>
+              <path d="M11.7 16.2v-3.4a2 2 0 0 1 4 0v3.4"></path>
+              <path d="M11.7 10.2v6"></path>
+            </svg>
+          </span>
           <span class="contact-text">LinkedIn</span>
         </a>
         <a href="mailto:lingyingzou19@gmail.com" class="contact-link">
-          <span class="contact-icon">✉️</span>
+          <span class="contact-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="contact-icon-svg" role="img" focusable="false">
+              <rect x="3.5" y="5.5" width="17" height="13" rx="2" ry="2"></rect>
+              <path d="M4.8 7.2 12 12.8l7.2-5.6"></path>
+            </svg>
+          </span>
           <span class="contact-text">Email</span>
         </a>
       </div>

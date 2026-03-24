@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupScrollAnimations();
     setupNavigation();
     setupDigitalEffects();
+    setupEyeWidget();
 });
 
 // Digital artistic effects
@@ -10,6 +11,10 @@ function setupDigitalEffects() {
     // Mouse follow effect for hero
     const hero = document.querySelector('.hero');
     const heroBg = document.querySelector('.hero-bg');
+
+    if (!hero || !heroBg) {
+        return;
+    }
 
     hero.addEventListener('mousemove', (e) => {
         const rect = hero.getBoundingClientRect();
@@ -125,6 +130,84 @@ function setupNavigation() {
             }
         });
     });
+}
+
+function setupEyeWidget() {
+    const pupils = Array.from(document.querySelectorAll('[data-pupil]'));
+
+    if (pupils.length === 0) {
+        return;
+    }
+
+    const pointer = {
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2,
+    };
+
+    const state = pupils.map((pupil) => ({
+        pupil,
+        currentX: 0,
+        currentY: 0,
+        targetX: 0,
+        targetY: 0,
+    }));
+
+    const updateTargets = () => {
+        state.forEach((item) => {
+            const eye = item.pupil.parentElement;
+            const eyeRect = eye.getBoundingClientRect();
+            const centerX = eyeRect.left + eyeRect.width / 2;
+            const centerY = eyeRect.top + eyeRect.height / 2;
+            const deltaX = pointer.x - centerX;
+            const deltaY = pointer.y - centerY;
+            const angle = Math.atan2(deltaY, deltaX);
+            const maxOffset = (eyeRect.width - item.pupil.offsetWidth) / 2 - 8;
+            const distance = Math.min(maxOffset, Math.hypot(deltaX, deltaY) * 0.22);
+
+            item.targetX = Math.cos(angle) * distance;
+            item.targetY = Math.sin(angle) * distance;
+        });
+    };
+
+    const animate = () => {
+        state.forEach((item) => {
+            item.currentX += (item.targetX - item.currentX) * 0.14;
+            item.currentY += (item.targetY - item.currentY) * 0.14;
+            item.pupil.style.setProperty('--pupil-x', `${item.currentX}px`);
+            item.pupil.style.setProperty('--pupil-y', `${item.currentY}px`);
+        });
+
+        requestAnimationFrame(animate);
+    };
+
+    window.addEventListener('pointermove', (event) => {
+        pointer.x = event.clientX;
+        pointer.y = event.clientY;
+        updateTargets();
+    });
+
+    window.addEventListener('touchmove', (event) => {
+        const touch = event.touches[0];
+
+        if (!touch) {
+            return;
+        }
+
+        pointer.x = touch.clientX;
+        pointer.y = touch.clientY;
+        updateTargets();
+    }, { passive: true });
+
+    window.addEventListener('resize', updateTargets);
+
+    window.addEventListener('mouseleave', () => {
+        pointer.x = window.innerWidth / 2;
+        pointer.y = window.innerHeight / 2;
+        updateTargets();
+    });
+
+    updateTargets();
+    animate();
 }
 
 // Scroll effects for digital feel
