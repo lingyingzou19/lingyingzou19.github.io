@@ -67,18 +67,6 @@ body {
 /* 每个菜单项 */
 .nav-item {
     position: relative;
-    display: inline-block;
-}
-
-/* Bridge to prevent hover gap flickering */
-.nav-item::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    height: 10px;
-    pointer-events: auto;
 }
 
 /* 主菜单文字 */
@@ -96,20 +84,23 @@ body {
 /* ===== Submenu（重点） ===== */
 .submenu {
     position: absolute;
-    top: calc(100% + 10px);
+    top: calc(100% + 12px);
     left: 0;
-    min-width: 220px;
-    background: transparent;
-    border: none;
-    padding: 0;
-    box-shadow: none;
-    z-index: 20;
 
+    background: white;
+    border-radius: 10px;
+    padding: 10px 0;
+    min-width: 220px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+    /* 初始隐藏 */
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transform: translateY(8px);
-    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+
+    transform: translateY(10px);
+    transition: all 0.25s ease;
 }
 
 /* hover 显示 */
@@ -124,23 +115,18 @@ body {
 .submenu-link {
     display: block;
     padding: 10px 20px;
-    color: rgba(26, 26, 26, 0.8);
+    font-size: 16px;
+    color: #333;
     text-decoration: none;
-    font-size: 28px;
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    transition: all 0.22s ease;
+    transition: all 0.2s ease;
 }
 
 .submenu-link:hover {
-    color: rgba(26, 26, 26, 1);
-    background: transparent;
+    background: #f0f0f0;
     transform: translateX(3px);
 }
 
-/* Gallery and other sections */
-
+/* ===== Gallery Section ===== */
 .gallery {
     padding: 80px;
 }
@@ -152,7 +138,6 @@ body {
 .gallery-section h2 {
     font-size: 48px;
     margin-bottom: 40px;
-    text-align: left;
 }
 
 /* 子分类 */
@@ -163,9 +148,7 @@ body {
 .subsection-title {
     font-size: 28px;
     margin-bottom: 20px;
-    margin-left: 0;
     color: rgba(0, 0, 0, 0.7);
-    text-align: left;
 }
 
 /* 图片网格 */
